@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Current Door Status</title>
+
+<style media="screen">
+
+h1 {
+  text-align: center;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 15vw;
+  max-width: 100vw;
+}
+
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>
+  </head>
+  <body>
+    <div class="center">
+      <h1 id="headline"></h1>
+    </div>
+
+
+<script>
+const getStatus = function() {
+  window.fetch('https://io.adafruit.com/api/v2/Trtmn/feeds/door-status')
+    .then((response) => {
+      return response.json();
+    })
+    .then((body) => {
+      document.getElementById("headline").innerHTML = body.last_value;
+    });
+}
+getStatus()
+window.setInterval(getStatus, 10 * 1000);
+</script>
+  </body>
+</html>
